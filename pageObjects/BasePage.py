@@ -3,8 +3,11 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.support.wait import WebDriverWait
 
+from config.config import Config
+
 
 class BasePage:
+    language = Config().get_config()["language"]
 
     def __init__(self, driver):
         self.driver = driver

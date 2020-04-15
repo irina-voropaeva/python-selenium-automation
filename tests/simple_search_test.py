@@ -5,7 +5,7 @@ from pageObjects.SearchBlock import SearchBlock
 from tests.BaseTest import BaseTest
 
 
-class TestSimpleSearchUa(BaseTest):
+class TestSimpleSearch(BaseTest):
 
     def test_search_with_entered_job_default_city(self):
         search_text = "qa engineer"
@@ -19,19 +19,27 @@ class TestSimpleSearchUa(BaseTest):
     def test_search_with_empty_job_and_default_city(self):
 
         self.search_block\
-            .click_job_field_clear_button()\
             .click_on_the_search_button()
 
-        assert search_text in self.driver.title
+        assert self.search_block.is_title_for_empty_job_and_default_city_correct() is True
+
+    def test_search_with_empty_job_and_kherson_city(self):
+
+        self.search_block\
+            .click_city_field()\
+            .choose_city_kherson()\
+            .click_on_the_search_button()
+
+        assert self.search_block.is_title_for_empty_job_and_kherson_city_correct() is True
 
     def test_search_with_empty_both_fields(self):
 
         self.search_block\
-            .click_job_field_clear_button()\
+            .click_city_field()\
             .click_city_field_clear_button()\
             .click_on_the_search_button()
 
-        assert search_text in self.driver.title
+        assert self.search_block.is_title_for_empty_job_and_city_correct() is True
 
 
 
