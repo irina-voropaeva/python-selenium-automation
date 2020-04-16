@@ -19,7 +19,14 @@ class SearchLocators:
 class SearchBlock(BasePage):
 
     def enter_job(self, word):
+        self.log.info("hello from page object")
         search_field = self.find_element(SearchLocators.LOCATOR_JOB_FIELD)
+        search_field.click()
+        search_field.send_keys(word)
+        return self
+
+    def enter_city(self, word):
+        search_field = self.find_element(SearchLocators.LOCATOR_CITY_FIELD)
         search_field.click()
         search_field.send_keys(word)
         return self

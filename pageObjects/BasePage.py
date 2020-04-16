@@ -8,6 +8,7 @@ from config.config import Config
 
 class BasePage:
     language = Config().get_config()["language"]
+    log = Config().logger
 
     def __init__(self, driver):
         self.driver = driver

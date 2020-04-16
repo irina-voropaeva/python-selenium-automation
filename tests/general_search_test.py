@@ -17,3 +17,4 @@ class TestGeneralSearch(BaseTest):
             .get_city_field_value()
 
         assert len(city_field_value) is 0
+

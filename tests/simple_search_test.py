@@ -1,15 +1,12 @@
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium import webdriver
-
-from pageObjects.SearchBlock import SearchBlock
+from config.config import Config
 from tests.BaseTest import BaseTest
-
+import logging
 
 class TestSimpleSearch(BaseTest):
 
     def test_search_with_entered_job_default_city(self):
         search_text = "qa engineer"
-
+        self.log.info("hello from test")
         self.search_block\
             .enter_job(search_text)\
             .click_on_the_search_button()
@@ -23,7 +20,7 @@ class TestSimpleSearch(BaseTest):
 
         assert self.search_block.is_title_for_empty_job_and_default_city_correct() is True
 
-    def test_search_with_empty_job_and_kherson_city(self):
+    def test_search_with_empty_job_and_choosed_kherson_city(self):
 
         self.search_block\
             .click_city_field()\
@@ -40,6 +37,17 @@ class TestSimpleSearch(BaseTest):
             .click_on_the_search_button()
 
         assert self.search_block.is_title_for_empty_job_and_city_correct() is True
+
+    def test_search_with_empty_job_and_entered_kherson_city(self):
+        city = "Херсон"
+
+        self.search_block\
+            .click_city_field()\
+            .click_city_field_clear_button()\
+            .enter_city(city)\
+            .click_on_the_search_button()
+
+        assert self.search_block.is_title_for_empty_job_and_kherson_city_correct() is True
 
 
 

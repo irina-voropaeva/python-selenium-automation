@@ -12,6 +12,7 @@ from pageObjects.SearchBlock import SearchBlock
 class BaseTest:
     base_url = "https://www.work.ua/"
     browser = Config().get_config()["browser"]
+    log = Config().logger
 
     def setup_method(self):
         self.set_browser()
