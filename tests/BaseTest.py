@@ -1,3 +1,5 @@
+import sys
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -8,26 +10,32 @@ from pageObjects.SearchBlock import SearchBlock
 class BaseTest:
     base_url = "https://www.work.ua/"
     browser = Config().get_config()["browser"]
-    log = Config().logger
+    config = Config()
 
     def setup_method(self):
         self.set_browser()
 
         self.driver.get(self.base_url)
         self.search_block = SearchBlock(self.driver)
-        self.log.info("Setup for method done")
+        self.config.log().info("Setup for method done")
 
     def teardown_method(self, test_method):
         self.driver.close()
-        self.log.info("Teardown for method done")
+
+        #if sys.exc_info()[0]:
+        #    test_method_name = test_method.name
+        #    self.driver.save_screenshot("Screenshots/%s.png" % test_method_name)
+
+        self.config.log().info("Teardown for method done")
+        self.config.log().info("\n")
 
     def set_browser(self):
         if self.browser == "chrome":
             self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
-            self.log.info("Chrome has been chosen")
+            self.config.log().info("Chrome has been chosen")
         elif self.browser == "edge":
             self.driver = webdriver.Edge(executable_path="../drivers/msedgedriver.exe")
-            self.log.info("Edge has been chosen")
+            self.config.log().info("Edge has been chosen")
         else:
+            self.config.log().info("Browser " + self.browser + " cannot be chosen")
             raise ValueError("Invalid browser type")
-        self.log.info("Browser " + self.browser + " cannot be chosen")

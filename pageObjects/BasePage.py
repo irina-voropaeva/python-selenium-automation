@@ -8,26 +8,26 @@ from config.config import Config
 
 class BasePage:
     language = Config().get_config()["language"]
-    log = Config().logger
+    config = Config()
 
     def __init__(self, driver):
         self.driver = driver
 
     def find_element(self, locator, time=10):
-        self.log.info("Finding element by locator")
+        self.config.log().info("Finding element by locator")
         return WebDriverWait(self.driver, time).until(EC.presence_of_element_located(locator),
                                                       message=f"Can't find element by locator {locator}")
 
     def find_clickable_element(self, locator, time=10):
-        self.log.info("Finding element by clickable locator")
+        self.config.log().info("Finding element by clickable locator")
         return WebDriverWait(self.driver, time).until(EC.element_to_be_clickable(locator),
                                                       message=f"Can't find element by locator {locator}")
 
     def find_elements(self, locator, time=10):
-        self.log.info("Finding elements")
+        self.config.log().info("Finding elements")
         return WebDriverWait(self.driver, time).until(EC.presence_of_all_elements_located(locator),
                                                       message=f"Can't find elements by locator {locator}")
 
     def go_to_site(self, url):
-        self.log.info("Go to site " + url)
+        self.config.log().info("Go to site " + url)
         return self.driver.get(url)
