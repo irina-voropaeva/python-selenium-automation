@@ -1,11 +1,9 @@
 import inspect
 
-from config.config import Config
 from tests.BaseTest import BaseTest
 
 
 class TestSimpleSearch(BaseTest):
-
     def test_search_with_entered_job_default_city(self):
         self.config.log().info(inspect.currentframe().f_code.co_name + " test started")
 
@@ -56,7 +54,7 @@ class TestSimpleSearch(BaseTest):
             .enter_city(city)\
             .click_on_the_search_button()
 
-        assert self.search_block.is_title_for_empty_job_and_kherson_city_correct() is True
+        assert self.search_block.is_title_for_empty_job_and_kherson_city_correct() is False
 
 
 

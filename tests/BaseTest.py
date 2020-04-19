@@ -1,5 +1,5 @@
+import os
 import sys
-
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -20,11 +20,10 @@ class BaseTest:
         self.config.log().info("Setup for method done")
 
     def teardown_method(self, test_method):
-        self.driver.close()
 
-        #if sys.exc_info()[0]:
-        #    test_method_name = test_method.name
-        #    self.driver.save_screenshot("Screenshots/%s.png" % test_method_name)
+        #self.driver.save_screenshot("screenshots/%s.png" % os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split(' ')[0])
+
+        self.driver.quit()
 
         self.config.log().info("Teardown for method done")
         self.config.log().info("\n")
@@ -34,7 +33,7 @@ class BaseTest:
             self.driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
             self.config.log().info("Chrome has been chosen")
         elif self.browser == "edge":
-            self.driver = webdriver.Edge(executable_path="../drivers/msedgedriver.exe")
+            self.driver = webdriver.Edge(executable_path="D:\\ksu-python-selenium\\python-selenium-automation\\drivers\\MicrosoftWebDriver.exe")
             self.config.log().info("Edge has been chosen")
         else:
             self.config.log().info("Browser " + self.browser + " cannot be chosen")

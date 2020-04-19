@@ -1,10 +1,11 @@
 import inspect
 
+from pytest import fixture
+
 from tests.BaseTest import BaseTest
 
 
 class TestGeneralSearch(BaseTest):
-
     def test_clear_search_field(self):
         self.config.log().info(inspect.currentframe().f_code.co_name + " test started")
         search_text = "my job"
@@ -24,3 +25,8 @@ class TestGeneralSearch(BaseTest):
 
         assert len(city_field_value) is 0
 
+    def test_advanced_search_can_be_clicked(self):
+        self.config.log().info(inspect.currentframe().f_code.co_name + " test started")
+
+        self.search_block.click_advanced_search()\
+            .is_advanced_search_filters_shown()
