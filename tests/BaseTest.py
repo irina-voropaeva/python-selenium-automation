@@ -20,9 +20,6 @@ class BaseTest:
         self.config.log().info("Setup for method done")
 
     def teardown_method(self, test_method):
-
-        #self.driver.save_screenshot("screenshots/%s.png" % os.environ.get('PYTEST_CURRENT_TEST').split(':')[-1].split(' ')[0])
-
         self.driver.quit()
 
         self.config.log().info("Teardown for method done")

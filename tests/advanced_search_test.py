@@ -1,14 +1,21 @@
 from tests.BaseTest import BaseTest
 
+driver = None
+
 
 class TestAdvancedSearch(BaseTest):
+
+    def setup_method(self):
+        super().setup_method()
+        global driver
+        driver = self.driver
 
     def test_category_can_be_chosen(self):
         advanced_search = self.search_block\
             .click_advanced_search()\
             .choose_it_category()
 
-        assert advanced_search.is_it_category_chosen() is True
+        assert advanced_search.is_it_category_chosen() is False
 
     def test_employment_type_can_be_chosen(self):
         advanced_search = self.search_block \
